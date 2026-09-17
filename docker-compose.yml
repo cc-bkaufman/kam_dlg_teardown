@@ -6,10 +6,7 @@ services:
       context: kamailio
       args:
         - KAM_VER=6.0
-    #command: ["-de"]
-    tty: true
-    stop_signal: SIGKILL
-    entrypoint: bash
+    command: ["-de"]
     volumes:
       - ./kamailio/etc/kamailio:/etc/kamailio
 
@@ -31,6 +28,7 @@ services:
     tty: true
     entrypoint: bash
     stop_signal: SIGKILL
+    working_dir: /data
     volumes:
       - ./uac/data:/data
 
