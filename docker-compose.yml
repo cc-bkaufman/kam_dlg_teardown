@@ -1,0 +1,38 @@
+services:
+
+  kamailio:
+    image: kam-basic
+    build:
+      context: kamailio
+      args:
+        - KAM_VER=6.0
+    #command: ["-de"]
+    tty: true
+    stop_signal: SIGKILL
+    entrypoint: bash
+    volumes:
+      - ./kamailio/etc/kamailio:/etc/kamailio
+
+  uas1:
+    image: kam-basic
+    command: ["-de"]
+    volumes:
+      - ./uas/etc/kamailio:/etc/kamailio
+
+  uas2:
+    image: alpine:latest
+    tty: true
+    stop_signal: SIGKILL
+
+  uac:
+    image: dialog_test_uac
+    build:
+      context: uac
+    tty: true
+    entrypoint: bash
+    stop_signal: SIGKILL
+    volumes:
+      - ./uac/data:/data
+
+
+
